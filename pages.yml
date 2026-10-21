@@ -1,0 +1,152 @@
+media:
+  input: public/media
+  output: /media
+  rename: safe
+  categories: [image]
+content:
+  - name: site
+    label: Homepage & company settings
+    type: file
+    path: content/site.json
+    format: json
+    fields:
+      - name: brand
+        label: Website brand
+        type: string
+        required: true
+      - name: heroEyebrow
+        label: Hero small heading
+        type: string
+      - name: heroTitle
+        label: Main homepage headline
+        type: string
+        required: true
+      - name: heroDescription
+        label: Homepage introduction
+        type: text
+      - name: heroImage
+        label: Homepage background image (optional)
+        type: image
+      - name: homeSectionTitle
+        label: Homepage section heading
+        type: string
+      - name: homeSectionDescription
+        label: Homepage section description
+        type: text
+      - name: email
+        label: Company public inquiry email
+        type: string
+      - name: phone
+        label: Company public phone
+        type: string
+      - name: company
+        label: Legal company name
+        type: string
+      - name: location
+        label: Company location
+        type: string
+      - name: since
+        label: Founded year
+        type: string
+      - name: legalNotice
+        label: Scope disclaimer
+        type: text
+      - name: seoTitle
+        label: Homepage Google title
+        type: string
+      - name: seoDescription
+        label: Homepage Google description
+        type: text
+  - name: solutions
+    label: Process solutions
+    type: collection
+    path: content/solutions
+    format: json
+    filename: '{primary}.json'
+    view:
+      primary: title
+    fields:
+      - name: title
+        label: Solution name
+        type: string
+        required: true
+      - name: category
+        type: string
+      - name: summary
+        type: text
+      - name: image
+        label: Solution photo
+        type: image
+      - name: body
+        label: Solution details
+        type: rich-text
+        options:
+          format: html
+      - name: seoTitle
+        label: Google title
+        type: string
+      - name: seoDescription
+        label: Google description
+        type: text
+  - name: equipment
+    label: Process equipment
+    type: collection
+    path: content/equipment
+    format: json
+    filename: '{primary}.json'
+    view:
+      primary: title
+    fields:
+      - name: title
+        label: Equipment name
+        type: string
+        required: true
+      - name: category
+        type: string
+      - name: summary
+        type: text
+      - name: image
+        label: Equipment photo
+        type: image
+      - name: body
+        label: Full equipment description
+        type: rich-text
+        options:
+          format: html
+      - name: seoTitle
+        label: Google title
+        type: string
+      - name: seoDescription
+        label: Google description
+        type: text
+  - name: insights
+    label: Technical articles
+    type: collection
+    path: content/insights
+    format: json
+    filename: '{primary}.json'
+    view:
+      primary: title
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Article title
+        type: string
+        required: true
+      - name: date
+        label: Publication date
+        type: date
+      - name: summary
+        type: text
+      - name: body
+        label: Article content
+        type: rich-text
+        options:
+          format: html
+      - name: seoTitle
+        label: Google title
+        type: string
+      - name: seoDescription
+        label: Google description
+        type: text
