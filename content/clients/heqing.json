@@ -1,4 +1,5 @@
 {
   "name": "heqing",
-  "logo": "/media/file-2.jpg"
+  "logo": "/media/file-2.jpg",
+  "order": 6
 }
