@@ -33,6 +33,15 @@ content:
       - name: homeSectionDescription
         label: Homepage section description
         type: text
+      - name: clientsHeading
+        label: Customer logo section title
+        type: string
+      - name: clientsDescription
+        label: Customer logo section introduction
+        type: text
+      - name: clientsMore
+        label: Show View more link (only after project pages are published)
+        type: boolean
       - name: email
         label: Company public inquiry email
         type: string
@@ -57,6 +66,25 @@ content:
       - name: seoDescription
         label: Homepage Google description
         type: text
+  - name: clients
+    label: Customer logos
+    type: collection
+    path: content/clients
+    format: json
+    filename: '{primary}.json'
+    view:
+      primary: name
+    fields:
+      - name: name
+        label: Customer name
+        type: string
+        required: true
+      - name: logo
+        label: Logo image (PNG, WebP or SVG)
+        type: image
+      - name: order
+        label: Display order (1, 2, 3...)
+        type: number
   - name: solutions
     label: Process solutions
     type: collection
