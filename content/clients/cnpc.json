@@ -1,4 +1,5 @@
 {
   "name": "cnpc",
-  "logo": "/media/cnpc.jpg"
+  "logo": "/media/cnpc.jpg",
+  "order": 3
 }
