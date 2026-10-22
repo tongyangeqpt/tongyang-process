@@ -1,4 +1,5 @@
 {
   "name": "flag",
-  "logo": "/media/flag.jpg"
+  "logo": "/media/flag.jpg",
+  "order": 5
 }
