@@ -1,4 +1,5 @@
 {
   "name": "ansteel",
-  "logo": "/media/ansteel.jpg"
+  "logo": "/media/ansteel.jpg",
+  "order": 2
 }
