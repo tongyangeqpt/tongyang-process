@@ -27,6 +27,9 @@ content:
       - name: heroImage
         label: Homepage background image (optional)
         type: image
+      - name: manufacturingImage
+        label: Factory photo - Engineering & Manufacturing section
+        type: image
       - name: homeSectionTitle
         label: Homepage section heading
         type: string
