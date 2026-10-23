@@ -136,6 +136,13 @@ content:
       - name: image
         label: Equipment photo
         type: image
+      - name: gallery
+        label: Equipment Gallery (up to 6 photos)
+        type: image
+        options:
+          multiple:
+            max: 6
+          unique: true
       - name: body
         label: Full equipment description
         type: rich-text
