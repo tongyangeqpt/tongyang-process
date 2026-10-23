@@ -2,8 +2,11 @@
   "title": "Evaporators & Crystallizers",
   "category": "Thermal Process Systems",
   "summary": "Evaporation and crystallization equipment for concentration and solids-handling applications.",
-  "image": "",
-  "body": "<p>Evaporation and crystallization projects are evaluated with reference to feed composition, flow, concentration target, energy sources, fouling behavior and utility constraints.</p><p>Equipment design and system integration requirements should be discussed as part of the process basis before firm technical and commercial offers are issued.</p>",
+  "image": "/media/file-3.png",
+  "gallery": [
+    "/media/separatorgallery.jpg"
+  ],
+  "body": "<p>Evaporation and crystallization equipment is used for concentration, separation and solids-handling applications in chemical and process industries.</p><p>Tongyang Process supplies custom equipment based on project requirements, including feed composition, evaporation duty, concentration targets, fouling tendency, utility conditions and material selection. Equipment scope may include evaporators, crystallization vessels, separators and related auxiliaries.</p><p>Final technical configuration and commercial scope are subject to confirmed process data and project specifications.</p>",
   "seoTitle": "Industrial Evaporators & Crystallizers | Tongyang Process",
-  "seoDescription": "Industrial evaporator and crystallizer equipment for process concentration and separation applications."
+  "seoDescription": "Custom evaporation and crystallization equipment for concentration, separation and solids-handling applications. Tongyang Process supplies project-specific equipment based on process and utility requirements."
 }
