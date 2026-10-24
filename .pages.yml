@@ -136,6 +136,10 @@ content:
         type: string
       - name: summary
         type: text
+      - name: catalogUrl
+        label: Related products URL on en.ty-ce.cn (optional)
+        type: string
+        description: Paste a verified category page URL from the established Tongyang English website.
       - name: image
         label: Equipment photo
         type: image
