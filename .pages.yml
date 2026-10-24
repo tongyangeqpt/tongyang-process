@@ -144,6 +144,12 @@ content:
         label: Link label for old-site category (optional)
         type: string
         description: For example Storage Tanks or Heat Exchangers.
+      - name: catalogUrl2
+        label: Additional old-site category URL (optional)
+        type: string
+      - name: catalogLabel2
+        label: Additional category link label (optional)
+        type: string
       - name: image
         label: Equipment photo
         type: image
