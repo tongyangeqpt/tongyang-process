@@ -140,6 +140,10 @@ content:
         label: Related products URL on en.ty-ce.cn (optional)
         type: string
         description: Paste a verified category page URL from the established Tongyang English website.
+      - name: catalogLabel
+        label: Link label for old-site category (optional)
+        type: string
+        description: For example Storage Tanks or Heat Exchangers.
       - name: image
         label: Equipment photo
         type: image
