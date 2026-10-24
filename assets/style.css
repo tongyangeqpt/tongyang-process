@@ -62,3 +62,19 @@
     height: auto;
   }
 }
+
+
+/* Prominent Made-in-China storefront links */
+.mic-showrooms{padding:30px 34px 34px;margin:0 0 42px;background:#f0f6f6;border:1px solid #cbdedf}
+.mic-heading{margin-bottom:20px}
+.mic-heading .eyebrow{color:#1b7773}
+.mic-heading h2{font-size:clamp(26px,3vw,36px);line-height:1.15;letter-spacing:-.035em;margin:7px 0 0;color:#102d3b}
+.mic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.mic-grid:has(> :only-child){grid-template-columns:1fr}
+.mic-card{display:flex;flex-direction:column;align-items:flex-start;min-height:222px;padding:27px 28px 24px;background:#fff;color:#122f3b;border:1px solid #c7d8d9;box-shadow:0 5px 16px #0a26330b;transition:border-color .2s,box-shadow .2s,transform .2s;text-decoration:none}
+.mic-card:hover,.mic-card:focus-visible{border-color:#257e78;box-shadow:0 12px 24px #0a26331c;transform:translateY(-2px)}
+.mic-kicker{font-size:11px;font-weight:750;letter-spacing:.12em;color:#237c78;margin-bottom:13px}
+.mic-card strong{font-size:23px;line-height:1.18;letter-spacing:-.025em}
+.mic-description{margin:12px 0 21px;color:#657680;font-size:14px;line-height:1.5}
+.mic-cta{display:inline-flex;align-items:center;justify-content:center;background:#123c4e;color:#fff;font-weight:750;font-size:14px;letter-spacing:.015em;padding:14px 22px;margin-top:auto;min-height:46px}
+@media(max-width:740px){.mic-showrooms{padding:22px 18px 23px;margin-bottom:30px}.mic-grid{grid-template-columns:1fr;gap:12px}.mic-card{padding:22px;min-height:185px}.mic-card strong{font-size:21px}.mic-cta{width:100%}}
