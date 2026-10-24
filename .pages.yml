@@ -105,6 +105,12 @@ content:
         type: string
       - name: summary
         type: text
+      - name: catalogUrl
+        label: Related products URL on en.ty-ce.cn (optional)
+        type: string
+      - name: catalogLabel
+        label: Old-site category link label (optional)
+        type: string
       - name: image
         label: Solution photo
         type: image
