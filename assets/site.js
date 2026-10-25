@@ -11,6 +11,22 @@
       toggle.setAttribute('aria-expanded', 'false');
     }));
   }
+  // Preserve the equipment context when a visitor comes from a product RFQ button.
+  const equipmentField = document.getElementById('rfq-equipment');
+  if (equipmentField) {
+    const requestedEquipment = new URLSearchParams(window.location.search).get('equipment');
+    if (requestedEquipment && requestedEquipment.trim()) {
+      const equipmentName = requestedEquipment.trim().slice(0, 120);
+      equipmentField.value = equipmentName;
+      const context = document.getElementById('rfq-context');
+      if (context) {
+        context.textContent = 'Quotation request for: ' + equipmentName;
+        context.hidden = false;
+      }
+      const typeField = document.querySelector('select[name="topic"]');
+      if (typeField) typeField.value = 'Process equipment';
+    }
+  }
   const form = document.querySelector('[data-rfq-form]');
   if (form) {
     form.addEventListener('submit', (event) => {
