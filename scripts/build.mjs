@@ -99,7 +99,7 @@ const breadcrumbJSONLD = (url, title, breadcrumbName='') => {
     route += '/' + part + '/';
     const label = index === parts.length - 1
       ? (breadcrumbName || String(title || '').split('|')[0].trim())
-      : (labels[part] || part.replace(/-/g,' ').replace(/(^|\\s)\\S/g,match=>match.toUpperCase()));
+      : (labels[part] || part.replace(/-/g,' ').replace(/(^|\s)\S/g,match=>match.toUpperCase()));
     items.push({name:label,item:BASE+route});
   });
   return JSON.stringify({'@context':'https://schema.org','@type':'BreadcrumbList','itemListElement':items.map((item,index)=>({'@type':'ListItem',position:index+1,name:item.name,item:item.item}))}).replace(/</g,'\\u003c');
