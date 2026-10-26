@@ -34,33 +34,39 @@ const legacyDetailLinks = it => {const links=catalogEntries(it);return links.len
 const equipmentRelated = {
   'pressure-vessels': [
     {url:'/solutions/modular-process-systems/',title:'Modular Process Systems',description:'See how vessels can fit into a defined process package.'},
-    {url:'/insights/pressure-vessel-rfq-checklist/',title:'Pressure Vessel RFQ Checklist',description:'Prepare the key information needed for a useful quotation.'}
+    {url:'/insights/pressure-vessel-rfq-checklist/',title:'Pressure Vessel RFQ Checklist',description:'Prepare the key information needed for a useful quotation.'},
+    {url:'/equipment/reactors/',title:'Chemical Reactors',description:'Explore vessel configurations for mixing, reaction and temperature-control duties.'}
   ],
   'heat-exchangers': [
     {url:'/solutions/thermal-process-packages/',title:'Thermal Process Packages',description:'Explore integrated heating, cooling and condensation equipment.'},
-    {url:'/insights/heat-exchanger-data-sheet-guide/',title:'Heat Exchanger Data Sheet Guide',description:'Review the core process inputs for an exchanger inquiry.'}
+    {url:'/insights/heat-exchanger-data-sheet-guide/',title:'Heat Exchanger Data Sheet Guide',description:'Review the core process inputs for an exchanger inquiry.'},
+    {url:'/equipment/evaporators/',title:'Evaporators & Crystallizers',description:'Explore equipment for concentration and thermal-processing duties.'}
   ],
   'reactors': [
     {url:'/solutions/thermal-process-packages/',title:'Thermal Process Packages',description:'Connect reactor temperature-control needs with related equipment.'},
-    {url:'/solutions/modular-process-systems/',title:'Modular Process Systems',description:'Review options for integrating vessels and selected auxiliaries.'}
+    {url:'/solutions/modular-process-systems/',title:'Modular Process Systems',description:'Review options for integrating vessels and selected auxiliaries.'},
+    {url:'/equipment/pressure-vessels/',title:'Pressure Vessels',description:'Review vessel construction, materials and design-code requirements.'}
   ],
   'towers-and-columns': [
     {url:'/solutions/separation-and-conditioning/',title:'Separation & Conditioning',description:'Explore equipment for industrial separation services.'},
-    {url:'/solutions/modular-process-systems/',title:'Modular Process Systems',description:'Review package interfaces and auxiliary equipment options.'}
+    {url:'/solutions/modular-process-systems/',title:'Modular Process Systems',description:'Review package interfaces and auxiliary equipment options.'},
+    {url:'/equipment/heat-exchangers/',title:'Heat Exchangers',description:'Explore condensers, coolers and reboilers associated with column duties.'}
   ],
   'separators': [
     {url:'/solutions/separation-and-conditioning/',title:'Separation & Conditioning',description:'Explore gas, liquid and multiphase separation applications.'},
-    {url:'/solutions/modular-process-systems/',title:'Modular Process Systems',description:'See options for integrating separation equipment into packages.'}
+    {url:'/solutions/modular-process-systems/',title:'Modular Process Systems',description:'See options for integrating separation equipment into packages.'},
+    {url:'/equipment/pressure-vessels/',title:'Pressure Vessels',description:'Review pressure-containing vessel design and fabrication requirements.'}
   ],
   'evaporators': [
     {url:'/solutions/thermal-process-packages/',title:'Thermal Process Packages',description:'Explore related heat-transfer and evaporation equipment.'},
-    {url:'/solutions/modular-process-systems/',title:'Modular Process Systems',description:'Review integrated equipment and utility interfaces.'}
+    {url:'/solutions/modular-process-systems/',title:'Modular Process Systems',description:'Review integrated equipment and utility interfaces.'},
+    {url:'/equipment/heat-exchangers/',title:'Heat Exchangers',description:'Explore heat-transfer equipment used in evaporation and condensation duties.'}
   ]
 };
 const equipmentRelatedLinks = it => {
   const links = equipmentRelated[it.slug] || [];
   if (!links.length) return '';
-  return '<section class="related-content"><h2>Related solutions &amp; resources</h2><div class="related-content-grid">' + links.map(link => '<a class="related-content-card" href="' + e(link.url) + '"><strong>' + e(link.title) + '</strong><span>' + e(link.description) + '</span></a>').join('') + '</div></section>';
+  return '<section class="related-content"><h2>Related Equipment, Solutions &amp; Resources</h2><div class="related-content-grid">' + links.map(link => '<a class="related-content-card" href="' + e(link.url) + '"><strong>' + e(link.title) + '</strong><span>' + e(link.description) + '</span></a>').join('') + '</div></section>';
 };
 
 const equipmentGallery = (item) => {
