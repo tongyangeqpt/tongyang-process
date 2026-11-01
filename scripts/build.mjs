@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { optimizeMedia } from './optimize-images.mjs';
 
 const root = process.cwd();
 const dist = path.join(root, 'dist');
@@ -23,7 +24,19 @@ const clientReferences = fs.existsSync('content/clients')
 
 const e = (value='') => String(value??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 const safeImg = val => (typeof val==='string' && (/^\/(?!\/)/.test(val)||/^https:\/\//i.test(val))) ? e(val) : '';
-const img = (data, alt, cls='') => safeImg(data) ? `<img class="${cls}" src="${safeImg(data)}" alt="${e(alt)}" loading="lazy">` : '';
+let optimizedImages = new Map();
+const img = (data, alt, cls='') => {
+  if (!safeImg(data)) return '';
+  const variant = optimizedImages.get(data);
+  const priority = cls === 'hero-image';
+  const gallery = cls === 'equipment-gallery-photo';
+  const chosen = variant ? (gallery ? variant.small : variant.large) : data;
+  const responsive = variant && variant.small !== variant.large
+    ? ` srcset="${safeImg(variant.small)} 720w, ${safeImg(variant.large)} 1500w" sizes="${priority ? '100vw' : gallery ? '(max-width: 700px) 100vw, 420px' : '(max-width: 800px) 100vw, 900px'}"`
+    : '';
+  const dimensions = variant ? ` width="${variant.width}" height="${variant.height}"` : '';
+  return `<img class="${e(cls)}" src="${safeImg(chosen)}"${responsive}${dimensions} alt="${e(alt)}" loading="${priority ? 'eager' : 'lazy'}" decoding="async"${priority ? ' fetchpriority="high"' : ''}>`;
+};
 const htmlbody = html => String(html||''); // CMS content is maintained by trusted repository editors.
 const legacyCatalogUrl = val => { try { const u = new URL(String(val || '')); return u.protocol === 'https:' && u.hostname === 'en.ty-ce.cn' ? e(u.href) : ''; } catch { return ''; } };
 const catalogEntries = it => [
@@ -83,7 +96,7 @@ const equipmentGallery = (item) => {
       <div class="equipment-gallery-grid">
         ${photos.map((src, i) => `
           <a href="${safeImg(src)}" target="_blank" rel="noopener noreferrer">
-            ${img(src, `${item.title} - photo ${i + 1}`)}
+            ${img(src, `${item.title} - photo ${i + 1}`, 'equipment-gallery-photo')}
           </a>
         `).join('')}
       </div>
@@ -123,6 +136,8 @@ const clientSection = () => !clientReferences.length ? '' : `<section class="cli
 function write(url,markup){const sub=url==='/'?'':url.replace(/^\//,'');const folder=path.join(dist,sub);fs.mkdirSync(folder,{recursive:true});fs.writeFileSync(path.join(folder,'index.html'),markup);urls.push(url);}
 let urls=[];
 fs.rmSync(dist,{recursive:true,force:true});fs.mkdirSync(dist,{recursive:true});fs.cpSync('assets',path.join(dist,'assets'),{recursive:true});fs.cpSync('public',dist,{recursive:true});
+optimizedImages = await optimizeMedia(path.join(root, 'public/media'), path.join(dist, 'media'));
+
 
 const home = `<section class="hero">${site.heroImage ? img(site.heroImage,'Tongyang manufacturing facilities','hero-image'):''}<div class="container hero-inner"><div><div class="eyebrow">${e(site.heroEyebrow)}</div><h1>${e(site.heroTitle)}</h1><p>${e(site.heroDescription)}</p><div class="cta-row"><a class="btn btn-primary" href="/contact/">Discuss your project ↗</a><a class="btn btn-outline" href="/solutions/">Explore our solutions →</a></div></div><div class="hero-visual">${blueprint}<div class="hero-micro">Process · Design · Fabrication</div></div></div></section><section class="dark-strip"><div class="container strip-inner"><div><strong>Established ${e(site.since)}</strong><span>Manufacturing experience</span></div><div><strong>Project-specific engineering</strong><span>Built around approved specifications</span></div><div><strong>International project focus</strong><span>Industrial and EPC supply</span></div></div></section><section class="section"><div class="container"><div class="section-head"><div><span class="eyebrow">OUR PROCESS CAPABILITIES</span><h2>${e(site.homeSectionTitle)}</h2></div><p>${e(site.homeSectionDescription)}</p></div>${cards(solutions,'solutions')}</div></section><section class="feature"><div class="feature-visual"><div class="feature-photo">${img(site.manufacturingImage || "/media/file-2.png","Tongyang chemical equipment manufacturing and fabrication")}</div></div><div class="feature-text"><span class="eyebrow" style="color:#82cfc6">ENGINEERING & MANUFACTURING</span><h2>Made for demanding operating conditions.</h2><p>From initial technical review and material selection through fabrication, inspection and documentation — a practical equipment-manufacturing partner.</p><ul><li>Custom pressure vessels and fabrication</li><li>Thermal and separation equipment</li><li>Engineering support and documentation</li><li>Modular and project-specific system interfaces</li></ul><a class="btn btn-primary" href="/manufacturing/" style="align-self:flex-start">Our capabilities ↗</a></div></section><section class="section section-muted"><div class="container"><div class="section-head"><div><span class="eyebrow">PRODUCT FAMILIES</span><h2>Equipment engineered for your process.</h2></div><p>Custom-built equipment covering a wide variety of duties, materials and applicable design requirements.</p></div>${cards(equipment.slice(0,6),'equipment')}<p style="text-align:center;margin:35px 0 0"><a class="btn btn-light" href="/equipment/">Browse equipment →</a></p><p style="text-align:center;margin:15px 0 0"><a class="arrow-link" href="https://en.ty-ce.cn/" target="_blank" rel="noopener noreferrer">See additional product examples on our established English website ↗</a></p></div></section><section class="section"><div class="container"><div class="section-head"><div><span class="eyebrow">KNOWLEDGE CENTER</span><h2>Practical engineering insight.</h2></div><p>Guidance for preparing technical inquiries and specifying industrial equipment.</p></div>${cards(insights.slice(0,3),'insights')}</div></section>${clientSection()}<section class="section-tight"><div class="container"><div class="note-banner"><div><h3>Have a process or equipment requirement?</h3><p>Send us your data sheet or outline your project; we will review a suitable scope.</p></div><a class="btn btn-primary" href="/contact/">Start an inquiry ↗</a></div></div></section>`;
 write('/',shell({title:site.seoTitle,description:site.seoDescription,url:'/',body:home}));
