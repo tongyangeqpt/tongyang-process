@@ -206,9 +206,13 @@ content:
         options:
           format: html
       - name: inlineImage
-        label: Image inside article (after first section)
+        label: Article image 1 (after first section)
         type: image
-        description: Upload an original factory photo or certificate. The website inserts it automatically after the first article section.
+        description: Upload a real equipment photo or certificate. For the ASME article, choose the U certificate.
+      - name: inlineImage2
+        label: Article image 2 (after second section)
+        type: image
+        description: Upload another separate photo or certificate. For the ASME article, choose the U2 certificate.
       - name: seoTitle
         label: Google title
         type: string
