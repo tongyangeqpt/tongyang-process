@@ -38,23 +38,30 @@ const img = (data, alt, cls='') => {
   return `<img class="${e(cls)}" src="${safeImg(chosen)}"${responsive}${dimensions} alt="${e(alt)}" loading="${priority ? 'eager' : 'lazy'}" decoding="async"${priority ? ' fetchpriority="high"' : ''}>`;
 };
 const htmlbody = html => String(html||''); // CMS content is maintained by trusted repository editors.
-// Insert a CMS-uploaded article photo after the first complete heading section.
-// This avoids requiring editors to write HTML or manually copy image paths.
+// Insert CMS-uploaded photos after separate article sections without rewriting the rich text.
 const articleBody = item => {
   const html = htmlbody(item.body);
-  if (!safeImg(item.inlineImage)) return html;
-  const photo = `<figure class="article-inline-figure">${img(item.inlineImage, `${item.title} — supporting technical photo`, 'article-inline-photo')}</figure>`;
-  const headings = [...html.matchAll(/<h([2-4])\b[^>]*>[\s\S]*?<\/h\1\s*>/gi)];
-  if (!headings.length) {
+  const photos = [item.inlineImage, item.inlineImage2]
+    .map((source, i) => ({ source, index: i }))
+    .filter(({ source }) => safeImg(source));
+  if (!photos.length) return html;
+  const figure = ({ source, index }) => `<figure class="article-inline-figure">${img(source, `${item.title} — supporting image ${index + 1}`, 'article-inline-photo')}</figure>`;
+  const headingMatches = [...html.matchAll(/<h([2-4])\b[^>]*>[\s\S]*?<\/h\1\s*>/gi)];
+  const positions = [];
+  if (!headingMatches.length) {
     const firstParagraphEnd = /<\/p\s*>/i.exec(html);
-    if (!firstParagraphEnd) return html + photo;
-    const at = firstParagraphEnd.index + firstParagraphEnd[0].length;
-    return html.slice(0, at) + photo + html.slice(at);
+    positions.push(firstParagraphEnd ? firstParagraphEnd.index + firstParagraphEnd[0].length : html.length);
+    positions.push(html.length);
+  } else {
+    const level = Number(headingMatches[0][1]);
+    const sections = headingMatches.filter(m => Number(m[1]) <= level);
+    positions.push(sections[1]?.index ?? html.length);
+    positions.push(sections[2]?.index ?? html.length);
   }
-  const firstLevel = Number(headings[0][1]);
-  const next = headings.slice(1).find(m => Number(m[1]) <= firstLevel);
-  const at = next ? next.index : html.length;
-  return html.slice(0, at) + photo + html.slice(at);
+  // Insert from the back so earlier character offsets remain valid.
+  return photos.map(p => ({ ...p, at: positions[p.index] }))
+    .sort((a, b) => b.at - a.at || b.index - a.index)
+    .reduce((body, photo) => body.slice(0, photo.at) + figure(photo) + body.slice(photo.at), html);
 };
 const legacyCatalogUrl = val => { try { const u = new URL(String(val || '')); return u.protocol === 'https:' && u.hostname === 'en.ty-ce.cn' ? e(u.href) : ''; } catch { return ''; } };
 const catalogEntries = it => [
