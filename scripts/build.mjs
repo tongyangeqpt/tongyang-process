@@ -38,6 +38,24 @@ const img = (data, alt, cls='') => {
   return `<img class="${e(cls)}" src="${safeImg(chosen)}"${responsive}${dimensions} alt="${e(alt)}" loading="${priority ? 'eager' : 'lazy'}" decoding="async"${priority ? ' fetchpriority="high"' : ''}>`;
 };
 const htmlbody = html => String(html||''); // CMS content is maintained by trusted repository editors.
+// Insert a CMS-uploaded article photo after the first complete heading section.
+// This avoids requiring editors to write HTML or manually copy image paths.
+const articleBody = item => {
+  const html = htmlbody(item.body);
+  if (!safeImg(item.inlineImage)) return html;
+  const photo = `<figure class="article-inline-figure">${img(item.inlineImage, `${item.title} — supporting technical photo`, 'article-inline-photo')}</figure>`;
+  const headings = [...html.matchAll(/<h([2-4])\\b[^>]*>[\\s\\S]*?<\\/h\\1\\s*>/gi)];
+  if (!headings.length) {
+    const firstParagraphEnd = /<\\/p\\s*>/i.exec(html);
+    if (!firstParagraphEnd) return html + photo;
+    const at = firstParagraphEnd.index + firstParagraphEnd[0].length;
+    return html.slice(0, at) + photo + html.slice(at);
+  }
+  const firstLevel = Number(headings[0][1]);
+  const next = headings.slice(1).find(m => Number(m[1]) <= firstLevel);
+  const at = next ? next.index : html.length;
+  return html.slice(0, at) + photo + html.slice(at);
+};
 const legacyCatalogUrl = val => { try { const u = new URL(String(val || '')); return u.protocol === 'https:' && u.hostname === 'en.ty-ce.cn' ? e(u.href) : ''; } catch { return ''; } };
 const catalogEntries = it => [
   {url:legacyCatalogUrl(it.catalogUrl),label:e(it.catalogLabel || it.title)},
@@ -173,7 +191,7 @@ write('/equipment/',shell({title:'Process Equipment | Tongyang Process',descript
 write('/insights/',shell({title:'Technical Insights | Tongyang Process',description:'Practical industrial equipment RFQ checklists and engineering procurement insights.',url:'/insights/',current:'/insights/',body:index('Technical Insights','KNOWLEDGE CENTER','Useful guidance for planning specifications, quotations and equipment packages.',insights.map(x=>({...x,category:x.date||'Article'})),'insights')}));
 
 for (const [section,list,current] of [['solutions',solutions,'/solutions/'],['equipment',equipment,'/equipment/'],['insights',insights,'/insights/']]){
- for (const it of list){const url=`/${section}/${it.slug}/`;const label=section==='equipment'?'Process Equipment':section==='solutions'?'Process Solutions':'Technical Insight';const body=`${pageHero(label,it.title,it.summary,[`<a href="/${section}/">${e(label)}</a>`,e(it.title)])}<div class="container detail-wrap"><article class="content-rich">${it.date?`<p class="article-date">Published ${e(it.date)}</p>`:''}${it.image?`<div style="margin-bottom:32px">${img(it.image,it.title)}</div>`:''}${htmlbody(it.body)}${section === 'equipment' ? equipmentRelatedLinks(it) : ''}${section === 'equipment' ? equipmentGallery(it) : ''}${section === 'equipment' || section === 'solutions' ? legacyDetailLinks(it) : ''}<div class="divider"></div><a href="/${section}/" class="arrow-link">← Back to ${e(label)}</a></article><aside class="aside"><div class="eyebrow" style="color:#27877f">PROJECT INQUIRIES</div><h3>Let's discuss your requirements.</h3><p>Send the intended duty, material, design code and relevant technical data, and our team can review the scope.</p>${section === 'equipment' ? `<a class="btn btn-primary equipment-aside-cta" href="/contact/?equipment=${encodeURIComponent(it.title)}">Request a Quotation ↗</a>` : '<a href="/contact/">Contact our team ↗</a>'}<a href="mailto:${e(site.email)}">${e(site.email)}</a></aside></div>`;write(url,shell({title:it.seoTitle||`${it.title} | Tongyang Process`,description:it.seoDescription||it.summary,url,current,body,breadcrumbName:it.title}));}
+ for (const it of list){const url=`/${section}/${it.slug}/`;const label=section==='equipment'?'Process Equipment':section==='solutions'?'Process Solutions':'Technical Insight';const body=`${pageHero(label,it.title,it.summary,[`<a href="/${section}/">${e(label)}</a>`,e(it.title)])}<div class="container detail-wrap"><article class="content-rich">${it.date?`<p class="article-date">Published ${e(it.date)}</p>`:''}${it.image?`<div style="margin-bottom:32px">${img(it.image,it.title)}</div>`:''}${section === 'insights' ? articleBody(it) : htmlbody(it.body)}${section === 'equipment' ? equipmentRelatedLinks(it) : ''}${section === 'equipment' ? equipmentGallery(it) : ''}${section === 'equipment' || section === 'solutions' ? legacyDetailLinks(it) : ''}<div class="divider"></div><a href="/${section}/" class="arrow-link">← Back to ${e(label)}</a></article><aside class="aside"><div class="eyebrow" style="color:#27877f">PROJECT INQUIRIES</div><h3>Let's discuss your requirements.</h3><p>Send the intended duty, material, design code and relevant technical data, and our team can review the scope.</p>${section === 'equipment' ? `<a class="btn btn-primary equipment-aside-cta" href="/contact/?equipment=${encodeURIComponent(it.title)}">Request a Quotation ↗</a>` : '<a href="/contact/">Contact our team ↗</a>'}<a href="mailto:${e(site.email)}">${e(site.email)}</a></aside></div>`;write(url,shell({title:it.seoTitle||`${it.title} | Tongyang Process`,description:it.seoDescription||it.summary,url,current,body,breadcrumbName:it.title}));}
 }
 
 
