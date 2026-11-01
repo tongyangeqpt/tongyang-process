@@ -205,6 +205,10 @@ content:
         type: rich-text
         options:
           format: html
+      - name: inlineImage
+        label: Image inside article (after first section)
+        type: image
+        description: Upload an original factory photo or certificate. The website inserts it automatically after the first article section.
       - name: seoTitle
         label: Google title
         type: string
