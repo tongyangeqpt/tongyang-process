@@ -83,6 +83,21 @@ const equipmentRelatedLinks = it => {
   return '<section class="related-content"><h2>Related Equipment, Solutions &amp; Resources</h2><div class="related-content-grid">' + links.map(link => '<a class="related-content-card" href="' + e(link.url) + '"><strong>' + e(link.title) + '</strong><span>' + e(link.description) + '</span></a>').join('') + '</div></section>';
 };
 
+// Descriptive alt text for verified factory photos; keyed by file path so CMS gallery order can change.
+const galleryAltText = {
+  '/media/03-three-tube-exchanger-assemblies.jpg': 'Three compact heat exchanger assemblies with flanged connections at Tongyang workshop',
+  '/media/05-shipment-protected-exchanger-units.jpg': 'Multiple heat exchanger units wrapped for shipment at Tongyang manufacturing yard',
+  '/media/06-large-horizontal-exchanger-units.jpg': 'Large horizontal heat exchanger units manufactured by Tongyang',
+  '/media/01-tongyang-pressure-vessel-front-clean.jpg': 'Large fabricated horizontal pressure vessel with flanged connections at Tongyang factory',
+  '/media/02-tongyang-pressure-vessel-angle-clean.jpg': 'Fabricated horizontal pressure vessel and industrial equipment outside Tongyang workshop',
+  '/media/tongyangoldequipment01originallogo.jpg': 'Large process vessel alongside smaller fabricated equipment in Tongyang yard',
+  '/media/tongyangoldequipment02originallogo.jpg': 'Industrial process equipment and cylindrical storage vessels at Tongyang yard',
+  '/media/tycerealphotoexactlogo.jpg': 'Large horizontal fabricated industrial process vessel with flanges at Tongyang factory',
+  '/media/tongyangimage2naturalcolororiginallogo.jpg': 'Industrial process vessels and connecting equipment in Tongyang factory yard',
+  '/media/03-large-industrial-column.jpg': 'Large fabricated industrial process column at Tongyang factory',
+  '/media/02-horizontal-process-vessel.jpg': 'Horizontal fabricated process vessel with bolted connections in Tongyang workshop',
+  '/media/tongyangcoilvesselcleanoriginallogo-1.png': 'Industrial vessel with external pipe coils fabricated at Tongyang workshop'
+};
 const equipmentGallery = (item) => {
   const photos = Array.isArray(item.gallery)
     ? item.gallery.filter(src => safeImg(src)).slice(0, 6)
@@ -96,7 +111,7 @@ const equipmentGallery = (item) => {
       <div class="equipment-gallery-grid">
         ${photos.map((src, i) => `
           <a href="${safeImg(src)}" target="_blank" rel="noopener noreferrer">
-            ${img(src, `${item.title} - photo ${i + 1}`, 'equipment-gallery-photo')}
+            ${img(src, galleryAltText[src] || `${item.title} equipment manufacturing photo ${i + 1} at Tongyang`, 'equipment-gallery-photo')}
           </a>
         `).join('')}
       </div>
