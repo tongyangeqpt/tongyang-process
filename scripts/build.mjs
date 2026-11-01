@@ -44,9 +44,9 @@ const articleBody = item => {
   const html = htmlbody(item.body);
   if (!safeImg(item.inlineImage)) return html;
   const photo = `<figure class="article-inline-figure">${img(item.inlineImage, `${item.title} — supporting technical photo`, 'article-inline-photo')}</figure>`;
-  const headings = [...html.matchAll(/<h([2-4])\\b[^>]*>[\\s\\S]*?<\\/h\\1\\s*>/gi)];
+  const headings = [...html.matchAll(/<h([2-4])\b[^>]*>[\s\S]*?<\/h\1\s*>/gi)];
   if (!headings.length) {
-    const firstParagraphEnd = /<\\/p\\s*>/i.exec(html);
+    const firstParagraphEnd = /<\/p\s*>/i.exec(html);
     if (!firstParagraphEnd) return html + photo;
     const at = firstParagraphEnd.index + firstParagraphEnd[0].length;
     return html.slice(0, at) + photo + html.slice(at);
