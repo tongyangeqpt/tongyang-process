@@ -197,6 +197,9 @@ content:
         type: date
       - name: summary
         type: text
+      - name: image
+        label: Article cover image (optional)
+        type: image
       - name: body
         label: Article content
         type: rich-text
