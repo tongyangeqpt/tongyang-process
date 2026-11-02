@@ -106,7 +106,7 @@ content:
       - name: summary
         type: text
       - name: catalogUrl
-        label: Related products URL on en.ty-ce.cn (optional)
+        label: Related products URL on tyceqt.com (optional)
         type: string
       - name: catalogLabel
         label: Old-site category link label (optional)
@@ -143,7 +143,7 @@ content:
       - name: summary
         type: text
       - name: catalogUrl
-        label: Related products URL on en.ty-ce.cn (optional)
+        label: Related products URL on tyceqt.com (optional)
         type: string
         description: Paste a verified category page URL from the established Tongyang English website.
       - name: catalogLabel
