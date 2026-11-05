@@ -102,6 +102,46 @@ const equipmentRelated = {
     {url:'/equipment/heat-exchangers/',title:'Heat Exchangers',description:'Explore heat-transfer equipment used in evaporation and condensation duties.'}
   ]
 };
+// Visible buyer FAQs for key equipment families; no unverified technical guarantees.
+const equipmentFAQs = {
+  'pressure-vessels': [
+    ['What information is required for a pressure vessel quotation?', 'Please provide the equipment service, medium, design pressure and temperature, capacity, materials, applicable design code, inspection requirements and drawings when available.'],
+    ['Can vessels be customized for different projects?', 'Yes. Vessel configuration, material, connections and documentation are reviewed against the project-specific specification.'],
+    ['How are inspection requirements agreed?', 'Examination, testing, witnessing and the manufacturing documentation package are confirmed during technical review and quotation.']
+  ],
+  'heat-exchangers': [
+    ['What process data are needed to select a heat exchanger?', 'Please provide fluid properties, flow rates, inlet and outlet temperatures, pressure conditions, allowable pressure drops and any fouling considerations.'],
+    ['Can heat exchanger materials and configurations be customized?', 'Equipment configuration and material selection are evaluated against the process duty, operating conditions and applicable standards.'],
+    ['Can related thermal equipment be discussed as a package?', 'Yes. Related condensers, coolers and associated equipment can be reviewed as part of a defined project scope.']
+  ],
+  'reactors': [
+    ['What information is needed for a chemical reactor inquiry?', 'Please provide reaction medium, capacity, pressure, temperature, mixing requirements, heating or cooling method and applicable specifications.'],
+    ['Can reactor designs include jackets or coils?', 'Jackets, coils and agitation arrangements can be reviewed where required by the process and mechanical design.'],
+    ['Are reactor design and manufacturing requirements project-specific?', 'Yes. The final configuration depends on the approved process data, materials, applicable code and agreed scope.']
+  ],
+  'towers-and-columns': [
+    ['What information is needed for a process tower quotation?', 'Please provide the separation duty, feed and product conditions, operating pressure and temperature, material requirements and available process data.'],
+    ['Can towers be supplied with internals?', 'The scope of internals, supports, nozzles and accessories can be discussed based on the technical specification.'],
+    ['How are transport limitations considered?', 'Shipping dimensions, lifting arrangements and possible sectional fabrication are reviewed for each project.']
+  ],
+  'separators': [
+    ['What data are needed for a separator inquiry?', 'Please provide the fluids, phase flow rates, operating conditions, separation target, design conditions and applicable codes.'],
+    ['Can separator internals be included?', 'Internals and their performance requirements are reviewed against the specified separation duty and project scope.'],
+    ['Can separation equipment be integrated into a skid?', 'Skid integration can be evaluated when piping, instrumentation, utilities and battery limits are defined.']
+  ],
+  'evaporators': [
+    ['What data are needed for an evaporator or crystallizer inquiry?', 'Please provide feed composition and flow, target concentration or product specification, operating pressure, temperature limits, utilities and fouling or crystallization concerns.'],
+    ['Can the evaporation configuration be tailored to the process?', 'The configuration can be evaluated against process properties, thermal duty, material selection and energy requirements.'],
+    ['Can related equipment be included?', 'Associated heat exchangers, condensers, vessels and package interfaces can be discussed according to the agreed scope.']
+  ]
+};
+const equipmentFAQMarkup = it => {
+  const rows = equipmentFAQs[it.slug] || [];
+  if (!rows.length) return '';
+  return '<section class="equipment-faq" aria-label="Frequently asked questions"><h2>Frequently Asked Questions</h2>'
+    + rows.map(([question,answer]) => '<h3>'+e(question)+'</h3><p>'+e(answer)+'</p>').join('')
+    + '</section>';
+};
 const equipmentRelatedLinks = it => {
   const links = equipmentRelated[it.slug] || [];
   if (!links.length) return '';
@@ -213,7 +253,7 @@ write('/equipment/',shell({title:'Process Equipment | Tongyang Process',descript
 write('/insights/',shell({title:'Technical Insights | Tongyang Process',description:'Practical industrial equipment RFQ checklists and engineering procurement insights.',url:'/insights/',current:'/insights/',body:index('Technical Insights','KNOWLEDGE CENTER','Useful guidance for planning specifications, quotations and equipment packages.',insights.map(x=>({...x,category:x.date||'Article'})),'insights')}));
 
 for (const [section,list,current] of [['solutions',solutions,'/solutions/'],['equipment',equipment,'/equipment/'],['insights',insights,'/insights/']]){
- for (const it of list){const url=`/${section}/${it.slug}/`;const label=section==='equipment'?'Process Equipment':section==='solutions'?'Process Solutions':'Technical Insight';const body=`${pageHero(label,it.title,it.summary,[`<a href="/${section}/">${e(label)}</a>`,e(it.title)])}<div class="container detail-wrap"><article class="content-rich">${it.date?`<p class="article-date">Published ${e(it.date)}</p>`:''}${it.image?`<div class="${section === 'insights' ? 'article-cover' : 'detail-image'}">${img(it.image,it.title,section === 'insights' ? 'article-cover-photo' : 'detail-photo')}</div>`:''}${section === 'insights' ? articleBody(it) : htmlbody(it.body)}${section === 'equipment' ? equipmentRelatedLinks(it) : ''}${section === 'equipment' ? equipmentGallery(it) : ''}${section === 'equipment' || section === 'solutions' ? legacyDetailLinks(it) : ''}<div class="divider"></div><a href="/${section}/" class="arrow-link">← Back to ${e(label)}</a></article><aside class="aside"><div class="eyebrow" style="color:#27877f">PROJECT INQUIRIES</div><h3>Let's discuss your requirements.</h3><p>Send the intended duty, material, design code and relevant technical data, and our team can review the scope.</p>${section === 'equipment' ? `<a class="btn btn-primary equipment-aside-cta" href="/contact/?equipment=${encodeURIComponent(it.title)}">Request a Quotation ↗</a>` : '<a href="/contact/">Contact our team ↗</a>'}<a href="mailto:${e(site.email)}">${e(site.email)}</a></aside></div>`;write(url,shell({title:it.seoTitle||`${it.title} | Tongyang Process`,description:it.seoDescription||it.summary,url,current,body,breadcrumbName:it.title}));}
+ for (const it of list){const url=`/${section}/${it.slug}/`;const label=section==='equipment'?'Process Equipment':section==='solutions'?'Process Solutions':'Technical Insight';const body=`${pageHero(label,it.title,it.summary,[`<a href="/${section}/">${e(label)}</a>`,e(it.title)])}<div class="container detail-wrap"><article class="content-rich">${it.date?`<p class="article-date">Published ${e(it.date)}</p>`:''}${it.image?`<div class="${section === 'insights' ? 'article-cover' : 'detail-image'}">${img(it.image,it.title,section === 'insights' ? 'article-cover-photo' : 'detail-photo')}</div>`:''}${section === 'insights' ? articleBody(it) : htmlbody(it.body)}${section === 'equipment' ? equipmentFAQMarkup(it) : ''}${section === 'equipment' ? equipmentRelatedLinks(it) : ''}${section === 'equipment' ? equipmentGallery(it) : ''}${section === 'equipment' || section === 'solutions' ? legacyDetailLinks(it) : ''}<div class="divider"></div><a href="/${section}/" class="arrow-link">← Back to ${e(label)}</a></article><aside class="aside"><div class="eyebrow" style="color:#27877f">PROJECT INQUIRIES</div><h3>Let's discuss your requirements.</h3><p>Send the intended duty, material, design code and relevant technical data, and our team can review the scope.</p>${section === 'equipment' ? `<a class="btn btn-primary equipment-aside-cta" href="/contact/?equipment=${encodeURIComponent(it.title)}">Request a Quotation ↗</a>` : '<a href="/contact/">Contact our team ↗</a>'}<a href="mailto:${e(site.email)}">${e(site.email)}</a></aside></div>`;write(url,shell({title:it.seoTitle||`${it.title} | Tongyang Process`,description:it.seoDescription||it.summary,url,current,body,breadcrumbName:it.title}));}
 }
 
 
