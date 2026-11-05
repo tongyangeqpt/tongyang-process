@@ -262,7 +262,7 @@ const llms = [
   '- Equipment specifications, design codes, materials and certifications depend on the approved project requirements.',
   '- For a quotation, provide service conditions, design pressure, temperature, medium, material and relevant drawings.',
   ''
-].join('\\n');
+].join('\n');
 fs.writeFileSync(path.join(dist,'llms.txt'), llms);
 fs.writeFileSync(path.join(dist,'robots.txt'),`User-agent: *\nAllow: /\nDisallow: /cdn-cgi/l/email-protection\nSitemap: ${BASE}/sitemap.xml\n`);
 const stamp = new Date().toISOString().slice(0,10);
