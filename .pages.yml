@@ -177,6 +177,52 @@ content:
       - name: seoDescription
         label: Google description
         type: text
+  - name: projects
+    label: Project references
+    type: collection
+    path: content/projects
+    format: json
+    filename: '{primary}.json'
+    view:
+      primary: title
+    fields:
+      - name: title
+        label: Project title
+        type: string
+        required: true
+      - name: published
+        label: Publish on website (only after checking supply scope and permission)
+        type: boolean
+        default: false
+      - name: category
+        label: Project sector (e.g. Water Treatment & ZLD)
+        type: string
+      - name: summary
+        label: Project overview for listing
+        type: text
+      - name: location
+        label: Project location (optional)
+        type: string
+      - name: partner
+        label: Project partner (only when disclosure is approved)
+        type: string
+      - name: equipmentScope
+        label: Tongyang actual equipment scope (not entire EPC scope)
+        type: text
+      - name: image
+        label: Approved project image (optional)
+        type: image
+      - name: body
+        label: Project description and Tongyang's role
+        type: rich-text
+        options:
+          format: html
+      - name: seoTitle
+        label: Google title
+        type: string
+      - name: seoDescription
+        label: Google description
+        type: text
   - name: insights
     label: Technical articles
     type: collection
