@@ -212,6 +212,13 @@ content:
       - name: image
         label: Approved project image (optional)
         type: image
+      - name: gallery
+        label: Project photo gallery (upload up to 12 images)
+        type: image
+        options:
+          multiple:
+            max: 12
+          unique: true
       - name: body
         label: Project description and Tongyang's role
         type: rich-text
