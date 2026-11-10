@@ -190,19 +190,21 @@ const navLinks=[['/solutions/','Solutions'],['/equipment/','Equipment'],['/manuf
 const nav = current => `<div class="topbar"><div class="container"><span>${e(site.company)} · ${e(site.location)}</span><span>ENGINEERED EQUIPMENT & INTEGRATED SYSTEMS</span></div></div><header class="header"><div class="container header-inner">${logo}<button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-nav-toggle>☰</button><nav class="nav" data-site-nav aria-label="Primary navigation">${navLinks.map(([url,t])=>`<a href="${url}"${current===url?' aria-current="page"':''}>${t}</a>`).join('')}<a href="/contact/" class="nav-cta" ${current==='/contact/'?'aria-current="page"':''}>Request a Quote ↗</a></nav></div></header>`;
 const footer=()=>`<footer class="footer"><div class="container"><div class="footer-grid"><div>${logo}<p style="max-width:340px;margin-top:22px">Custom process equipment, engineering support and integrated industrial solutions.</p><p>${e(site.company)}<br>${e(site.location)}</p></div><div><h4>Explore</h4><div class="footer-links">${[...navLinks,['/contact/','Contact / RFQ']].map(([h,t])=>link(h,t)).join('')}<a href="https://yz-tongyang.en.made-in-china.com/" target="_blank" rel="noopener noreferrer">Made-in-China · Equipment ↗</a><a href="https://tongyang-epcm-china.en.made-in-china.com/" target="_blank" rel="noopener noreferrer">Made-in-China · EPC &amp; Process Solutions ↗</a></div></div><div><h4>Get in touch</h4><div class="footer-links"><a href="mailto:${e(site.email)}">${e(site.email)}</a><a href="tel:${e(site.phone.replace(/[^0-9+]/g,''))}">${e(site.phone)}</a><p>${e(site.legalNotice)}</p></div></div></div><div class="footer-bottom"><span>© ${new Date().getFullYear()} ${e(site.company)}. All rights reserved.</span><span>Process engineering · Equipment · Integrated systems</span></div></div></footer>`;
 const organizationJSONLD=JSON.stringify({'@context':'https://schema.org','@type':'Organization','name':site.company,'url':BASE,'email':site.email,'telephone':site.phone,'address':{'@type':'PostalAddress','addressLocality':'Yangzhou','addressRegion':'Jiangsu','addressCountry':'CN'}}).replace(/</g,'\\u003c');
-// Product structured data is generated only for actual product-detail pages.
-// No speculative prices, stock status, certifications or unverified technical values.
+// Product-detail pages describe made-to-order industrial equipment, not priced retail offers.
+// Use descriptive WebPage schema instead of Product rich-result markup that requires
+// genuine offers or reviews. Keep the separate breadcrumb schema unchanged.
 const productSchema = (item,url) => {
+  const description = item.seoDescription || item.summary;
   const data = {
     '@context':'https://schema.org',
-    '@type':'Product',
+    '@type':'WebPage',
     name:item.title,
-    description:item.seoDescription || item.summary,
+    description,
     url:BASE + url,
-    brand:{'@type':'Brand',name:'Tongyang'},
-    manufacturer:{'@type':'Organization',name:site.company,url:BASE}
+    about:{'@type':'Thing',name:item.title,description},
+    publisher:{'@type':'Organization',name:site.company,url:BASE}
   };
-  if (typeof item.image === 'string' && /^\/(?!\/)/.test(item.image)) data.image = BASE + item.image;
+  if (typeof item.image === 'string' && /^\/(?!\/)/.test(item.image)) data.primaryImageOfPage = {'@type':'ImageObject',url:BASE + item.image};
   return '<script type="application/ld+json">'+JSON.stringify(data).replace(/</g,'\\u003c')+'</script>';
 };
 const breadcrumbJSONLD = (url, title, breadcrumbName='') => {
