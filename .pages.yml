@@ -177,6 +177,68 @@ content:
       - name: seoDescription
         label: Google description
         type: text
+  - name: products
+    label: Products (under equipment categories)
+    type: collection
+    path: content/products
+    format: json
+    filename: '{primary}.json'
+    view:
+      primary: title
+      fields: [title, parentCategory, summary]
+    fields:
+      - name: title
+        label: Product name
+        type: string
+        required: true
+      - name: parentCategory
+        label: Parent equipment category
+        type: select
+        required: true
+        description: Choose one of the six main equipment categories. This determines where the product appears.
+        options:
+          placeholder: Select equipment category
+          values:
+            - name: reactors
+              label: Chemical Reactors
+            - name: evaporators
+              label: Evaporators & Crystallizers
+            - name: heat-exchangers
+              label: Heat Exchangers
+            - name: pressure-vessels
+              label: Pressure Vessels
+            - name: separators
+              label: Process Separators
+            - name: towers-and-columns
+              label: Towers & Columns
+      - name: category
+        label: Additional product type (optional)
+        type: string
+      - name: summary
+        label: Short product description
+        type: text
+        required: true
+      - name: image
+        label: Main product photo
+        type: image
+      - name: gallery
+        label: Product photo gallery (up to 6)
+        type: image
+        options:
+          multiple:
+            max: 6
+          unique: true
+      - name: body
+        label: Full product description (including table)
+        type: rich-text
+        options:
+          format: html
+      - name: seoTitle
+        label: Google title (SEO)
+        type: string
+      - name: seoDescription
+        label: Google description (SEO)
+        type: text
   - name: projects
     label: Project references
     type: collection
