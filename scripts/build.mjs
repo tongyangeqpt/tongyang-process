@@ -70,7 +70,7 @@ const catalogEntries = it => [
   {url:legacyCatalogUrl(it.catalogUrl2),label:e(it.catalogLabel2 || it.title)}
 ].filter(entry => entry.url);
 const legacyCategoryLinks = items => { const links=items.flatMap(catalogEntries);return links.length ? '<div style="margin-top:30px"><h3 style="font-size:19px;margin-bottom:12px">More equipment examples</h3><div style="display:flex;gap:12px;flex-wrap:wrap">'+links.map(entry => '<a class="btn btn-light" target="_blank" rel="noopener noreferrer" href="'+entry.url+'">'+entry.label+' ↗</a>').join('')+'</div></div>' : ''; };
-const legacyDetailLinks = it => {const links=catalogEntries(it);return links.length ? '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:30px">'+links.map(entry => '<a class="btn btn-light" target="_blank" rel="noopener noreferrer" href="'+entry.url+'">Browse more '+entry.label+' examples ↗</a>').join('')+'</div>' : '';};
+const legacyDetailLinks = it => {const entry=catalogEntries(it)[0];return entry ? '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:30px"><a class="btn btn-light" target="_blank" rel="noopener noreferrer" href="'+entry.url+'">View More Equipment Examples ↗</a></div>' : '';};
 const equipmentRelated = {
   'pressure-vessels': [
     {url:'/solutions/modular-process-systems/',title:'Modular Process Systems',description:'See how vessels can fit into a defined process package.'},
