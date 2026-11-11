@@ -113,3 +113,23 @@
 .article-cover-photo{display:block;width:auto;height:auto;max-width:100%;max-height:410px;object-fit:contain;border-radius:4px}
 .detail-image{margin:0 0 32px;max-width:100%}
 .detail-photo{display:block;max-width:100%;height:auto}
+
+/* Products displayed under each of the six equipment family pages. */
+.category-product-list{margin:44px 0 36px;padding-top:24px;border-top:1px solid #dce6e5}
+.content-rich .category-product-list h2{font-size:25px;margin:0 0 9px;color:#142f3c}
+.content-rich .category-product-list>p{font-size:14px;margin:0 0 22px;color:#526c77}
+.content-rich .category-product-list .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.content-rich .category-product-list .card{min-height:0;line-height:1.55}
+.content-rich .category-product-list .card-content{padding:18px}
+.content-rich .category-product-list .card h3{font-size:18px;line-height:1.35;margin:9px 0}
+.content-rich .category-product-list .card p{font-size:12px;margin:0 0 14px}
+.content-rich .category-product-list .card-top{height:135px}
+/* Ensure short specification tables in product rich-text are readable on mobile. */
+.content-rich table{width:100%;border-collapse:collapse;margin:18px 0 26px;font-size:14px;line-height:1.55}
+.content-rich table th,.content-rich table td{padding:11px 13px;border:1px solid #d9e5e3;text-align:left;vertical-align:top}
+.content-rich table th{background:#edf5f3;font-weight:750;color:#193b43}
+.content-rich table tr:nth-child(even) td{background:#f8faf9}
+@media(max-width:760px){
+  .content-rich .category-product-list .cards{grid-template-columns:1fr}
+  .content-rich table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+}
