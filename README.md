@@ -41,8 +41,9 @@ Preview the `pages.dev` URL before attaching your `.com` domain.
 
 1. Open https://app.pagescms.org/ and sign in with GitHub.
 2. Authorize the Pages CMS GitHub app for the `tongyang-process` repository only.
-3. Choose `tongyang-process` and edit the **Homepage & company settings**, **Process solutions**, **Process equipment**, or **Technical articles**.
-4. Saving changes commits JSON content to GitHub, and Cloudflare Pages rebuilds the site automatically.
+3. Choose `tongyang-process`. **Process equipment** contains the six main equipment families, while **Products (under equipment categories)** is where individual products are created.
+4. For a new product, select **Add an entry** under **Products**, fill in the product name, choose **Parent equipment category**, and enter its short description, photos, detailed body and SEO settings. Its page is created at `/equipment/<category>/<product>/` and a product card appears on its parent equipment-family page.
+5. Saving changes commits JSON content to GitHub, and Cloudflare Pages rebuilds the site automatically. Existing legacy product URLs remain unchanged.
 
 To add new equipment or articles, use the CMS's **New** entry action. File names become the URL slugs.
 
