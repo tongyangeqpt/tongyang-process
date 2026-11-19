@@ -202,3 +202,20 @@
 .certificate-item p{font-size:11px;color:var(--muted);margin:0}
 @media(max-width:900px){.certificate-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:620px){.certificate-gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.certificate-item{padding:8px}.certificate-item a{height:112px}.certificate-item h3{font-size:12px}}
+
+
+/* Homepage industries: tall editorial photos with clean caption panels. */
+.application-section .cards{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.application-section .card{min-height:0;border:0;background:transparent;box-shadow:none}
+.application-section .card:hover{transform:translateY(-3px);box-shadow:0 12px 28px #0d2e3a12}
+.application-section .card-top{height:auto;aspect-ratio:4/5;background:#e8eef0}
+.application-section .card-top img{width:100%;height:100%;object-fit:cover;object-position:center}
+.application-section .card-top::after,.application-section .card-top .geometry{display:none}
+.application-section .card-content{min-height:96px;padding:20px 18px;background:#dce8ee;justify-content:center}
+.application-section .card:nth-child(odd) .card-content{background:#cce5ee}
+.application-section .card-label,.application-section .card-content p,.application-section .arrow-link{display:none}
+.application-section .card h3{margin:0;color:#0b3652;font-size:17px;line-height:1.28;letter-spacing:.015em;font-weight:750;text-transform:uppercase}
+.industry-credit{margin:15px 0 0;color:#7a8b94;font-size:10px;line-height:1.5}
+.industry-credit a{color:#56798b;text-decoration:underline}
+@media(max-width:1000px){.application-section .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}}
+@media(max-width:760px){.application-section .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.application-section .card-content{min-height:78px;padding:14px 12px}.application-section .card h3{font-size:13px;line-height:1.3}}
