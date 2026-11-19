@@ -192,3 +192,13 @@
 .corporate-credentials article{padding:20px;border:1px solid var(--line);border-radius:7px;background:#fff}
 @media(max-width:900px){.credential-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:720px){.credential-grid,.iso-grid,.corporate-credentials{grid-template-columns:1fr}.credential-feature{grid-template-columns:88px minmax(0,1fr)}.credential-feature img{height:150px}}
+
+/* Compact certificate gallery: thumbnails link to the original full-size files */
+.certificate-gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.certificate-item{min-width:0;border:1px solid var(--line);border-radius:7px;background:#fff;padding:12px;text-align:center}
+.certificate-item a{display:flex;height:132px;align-items:center;justify-content:center;background:#f5f7f8;border:1px solid #e5eaed;overflow:hidden}
+.certificate-item img{width:100%;height:100%;object-fit:contain;padding:5px}
+.certificate-item h3{font-size:14px;line-height:1.35;margin:10px 0 3px;color:var(--ink)}
+.certificate-item p{font-size:11px;color:var(--muted);margin:0}
+@media(max-width:900px){.certificate-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){.certificate-gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.certificate-item{padding:8px}.certificate-item a{height:112px}.certificate-item h3{font-size:12px}}
