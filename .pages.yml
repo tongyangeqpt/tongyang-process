@@ -289,6 +289,33 @@ content:
       - name: seoDescription
         label: Google description
         type: text
+  - name: certificates
+    label: Certificates
+    type: collection
+    path: content/certificates
+    format: json
+    filename: '{primary}.json'
+    view:
+      primary: title
+      fields: [title, details, order]
+    fields:
+      - name: title
+        label: Certificate name
+        type: string
+        required: true
+      - name: details
+        label: Certificate number or note (optional)
+        type: string
+      - name: image
+        label: Certificate image
+        type: image
+        required: true
+      - name: validUntil
+        label: Valid until (optional)
+        type: date
+      - name: order
+        label: Display order (1, 2, 3...)
+        type: number
   - name: insights
     label: Technical articles
     type: collection
