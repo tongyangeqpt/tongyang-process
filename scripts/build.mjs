@@ -236,6 +236,7 @@ const applicationAreas = [
   {slug:'energy-thermal',title:'Energy & Thermal Processes',category:'ENERGY & UTILITIES',summary:'Heat exchangers, condensers and evaporation equipment for industrial heating, cooling and concentration.',image:'/media/01-shell-and-tube-heat-exchanger-main.jpg',href:'/projects/industrial-multi-effect-evaporation-system-project/'},
   {slug:'water-environmental',title:'Water & Environmental',category:'WATER & ENVIRONMENT',summary:'Equipment and engineering coordination for water treatment, wastewater treatment and ZLD projects.',image:'/media/evaporator-1.png',href:'/projects/water-supply-wastewater-zld-epc-support/'},
   {slug:'polymers-specialty-chemicals',title:'Polymers & Specialty Chemicals',category:'SPECIALTY MATERIALS',summary:'Customized process equipment and project support for polymer, resin and specialty chemical production.',image:'/media/08detailskidprocess.png',href:'/projects/batf-group-chemical-production-facility-project/'}
+];
 // Products belong to one of the six equipment families; legacy products may only have a category label.
 const productParentSlug = item => {
   const parent = String(item.parentCategory || '').trim();
