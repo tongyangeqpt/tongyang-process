@@ -219,3 +219,22 @@
 .industry-credit a{color:#56798b;text-decoration:underline}
 @media(max-width:1000px){.application-section .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}}
 @media(max-width:760px){.application-section .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.application-section .card-content{min-height:78px;padding:14px 12px}.application-section .card h3{font-size:13px;line-height:1.3}}
+
+
+/* Compact homepage Manufacturing Capability section: keep the same content and image, reduce excess height. */
+.feature-visual{min-height:540px}
+.feature-text{padding:48px 58px 48px 64px}
+.feature-text h2{font-size:clamp(30px,2.55vw,42px);line-height:1.12;margin:8px 0 12px}
+.feature-text p{max-width:640px;line-height:1.6;margin:0 0 10px}
+.feature-text ul{margin:6px 0 20px}
+.feature-text li{padding:8px 0}
+@media(max-width:1000px) and (min-width:761px){
+  .feature-visual{min-height:480px}
+  .feature-text{padding:42px 36px}
+  .feature-text h2{font-size:clamp(29px,3.2vw,36px)}
+}
+@media(max-width:760px){
+  .feature-visual{min-height:240px}
+  .feature-text{padding:34px 25px 40px}
+  .feature-text h2{font-size:clamp(30px,8vw,38px)}
+}
