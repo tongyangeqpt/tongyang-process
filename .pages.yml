@@ -310,9 +310,6 @@ content:
         label: Certificate image
         type: image
         required: true
-      - name: validUntil
-        label: Valid until (optional)
-        type: date
       - name: order
         label: Display order (1, 2, 3...)
         type: number
