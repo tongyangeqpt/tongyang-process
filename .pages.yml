@@ -92,12 +92,12 @@ content:
             max: 4
           unique: true
       - name: engineeringGallery
-        label: 04 - Engineering & Equipment Gallery (up to 2 photos)
+        label: 04 - Engineering & Equipment Gallery (up to 3 photos)
         type: image
         description: Pressure vessels and fabricated equipment. Recommended landscape 3:2 images.
         options:
           multiple:
-            max: 2
+            max: 3
           unique: true
       - name: internationalImage
         label: 05 - International Business / Shipment Photo
