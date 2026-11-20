@@ -376,3 +376,20 @@
   .about-photo-grid-four img,.about-photo-pair img{height:100%;aspect-ratio:3 / 2}
   .about-international-photo{aspect-ratio:16 / 9;max-height:none}
 }
+
+
+/* Optional About company-environment photo managed through the CMS */
+.about-company-photo{
+  margin:24px 0 0;
+  max-width:920px;
+  aspect-ratio:16 / 9;
+  overflow:hidden;
+  background:#e8eeee;
+}
+.about-company-photo img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
