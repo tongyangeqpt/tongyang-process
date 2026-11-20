@@ -69,6 +69,48 @@ content:
       - name: seoDescription
         label: Homepage Google description
         type: text
+  - name: about
+    label: About Page Photos
+    type: file
+    path: content/about.json
+    format: json
+    fields:
+      - name: overviewImage
+        label: 01 - Company Overview Main Photo
+        type: image
+        description: Main About photo. Recommended landscape 16:9 composition.
+      - name: companyEnvironmentImage
+        label: 02 - Company Office / Reception Photo
+        type: image
+        description: Optional supporting photo for the Company at a Glance section. Recommended landscape 16:9.
+      - name: manufacturingGallery
+        label: 03 - Manufacturing Gallery (up to 4 photos)
+        type: image
+        description: Factory exterior, aerial view and workshop photos. Recommended landscape 3:2 images.
+        options:
+          multiple:
+            max: 4
+          unique: true
+      - name: engineeringGallery
+        label: 04 - Engineering & Equipment Gallery (up to 2 photos)
+        type: image
+        description: Pressure vessels and fabricated equipment. Recommended landscape 3:2 images.
+        options:
+          multiple:
+            max: 2
+          unique: true
+      - name: internationalImage
+        label: 05 - International Business / Shipment Photo
+        type: image
+        description: Export packing, loading or delivery photo. Recommended landscape 16:9.
+      - name: innovationGallery
+        label: 06 - Innovation & University Cooperation (up to 2 photos)
+        type: image
+        description: Genuine research, university cooperation or technical development photos. Recommended landscape 3:2 images.
+        options:
+          multiple:
+            max: 2
+          unique: true
   - name: clients
     label: Customer logos
     type: collection
