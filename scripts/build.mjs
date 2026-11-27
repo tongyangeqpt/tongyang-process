@@ -274,7 +274,7 @@ const clientSection = () => !clientReferences.length ? '' : `<section class="cli
 function write(url,markup){const sub=url==='/'?'':url.replace(/^\//,'');const folder=path.join(dist,sub);fs.mkdirSync(folder,{recursive:true});fs.writeFileSync(path.join(folder,'index.html'),markup);urls.push(url);}
 let urls=[];
 fs.rmSync(dist,{recursive:true,force:true});fs.mkdirSync(dist,{recursive:true});fs.cpSync('assets',path.join(dist,'assets'),{recursive:true});fs.cpSync('public',dist,{recursive:true});
-fs.writeFileSync(path.join(dist,'_redirects'),'/manufacturing/ /quality/ 301\\n');
+fs.writeFileSync(path.join(dist,'_redirects'),'/manufacturing/ /quality/ 301\n');
 optimizedImages = await optimizeMedia(path.join(root, 'public/media'), path.join(dist, 'media'));
 
 
@@ -408,8 +408,7 @@ const llms = [
 ].join('\n');
 fs.writeFileSync(path.join(dist,'llms.txt'), llms);
 fs.writeFileSync(path.join(dist,'robots.txt'),`User-agent: *\nAllow: /\nDisallow: /cdn-cgi/l/email-protection\nSitemap: ${BASE}/sitemap.xml\n`);
-const stamp = new Date().toISOString().slice(0,10);
-fs.writeFileSync(path.join(dist,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(url=>`  <url><loc>${BASE}${url}</loc><lastmod>${stamp}</lastmod></url>`).join('\n')}\n</urlset>\n`);
+fs.writeFileSync(path.join(dist,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.filter(url => url !== '/manufacturing/').map(url=>`  <url><loc>${BASE}${url}</loc></url>`).join('\n')}\n</urlset>\n`);
 write('/thank-you/',shell({title:'Inquiry Submitted | Tongyang Process',description:'Thank you for contacting Tongyang Process.',url:'/thank-you/',noindex:true,body:`<section class="section"><div class="container" style="max-width:760px;text-align:center;padding-top:80px;padding-bottom:80px"><div class="eyebrow">REQUEST RECEIVED</div><h1>Thank you for your inquiry!</h1><p>Your request has been submitted successfully. Our team will review your requirements and contact you by email.</p><p class="form-hint" style="margin:22px 0">You will return to our homepage automatically in a few seconds.</p><a class="btn btn-primary" href="/">Return to homepage →</a></div></section><script>window.setTimeout(function(){window.location.replace('/')},7000)</script>`}));
 fs.writeFileSync(path.join(dist,'404.html'),shell({title:'Page not found | Tongyang Process',description:'This page could not be found.',url:'/404/',body:`<section class="section"><div class="container"><h1>Page not found</h1><p>Sorry, the requested page is unavailable.</p><a class="btn btn-primary" href="/">Back to homepage →</a></div></section>`}));
 console.log(`Generated ${urls.length} website pages in dist/`);
